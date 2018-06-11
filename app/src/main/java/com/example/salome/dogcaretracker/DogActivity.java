@@ -27,8 +27,7 @@ public class DogActivity extends AppCompatActivity {
         insertDogChore();
         displayDatabaseInfo();
     }
-
-
+    
     private void insertDogChore() {
         String date1String = "1/18/18";
         String date2String = "2/20/18";
@@ -88,28 +87,10 @@ public class DogActivity extends AppCompatActivity {
 
     private void displayDatabaseInfo() {
 
-        // Create and/or open a database to read from it
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
-
-        String[] projection = {
-                DogEntry.WALK_ID,
-                DogEntry.COLUMN_DATE1,
-                DogEntry.COLUMN_TIME1,
-                DogEntry.COLUMN_LENGTH,
-                DogEntry.COLUMN_LOCATION
-        };
-
-        Cursor cursor = db.query(
-                DogEntry.TABLE_WALKING,
-                projection,
-                null,
-                null,
-                null,
-                null,
-                null);
+        Cursor cursor = mDbHelper.readDogChores();
 
         try {
-            TextView displayView = (TextView) findViewById(R.id.text_view_dogduty);
+            TextView displayView = findViewById(R.id.text_view_dogduty);
 
             displayView.setText("Walking Table" + "\n");
             displayView.append(

@@ -3,6 +3,7 @@ package com.example.salome.dogcaretracker.Data;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.Cursor;
 
 import com.example.salome.dogcaretracker.Data.DogContract.DogEntry;
 
@@ -59,5 +60,18 @@ public class DogDbHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
-}
 
+    public Cursor readDogChores() {
+        SQLiteDatabase readableDatabase = getReadableDatabase();
+
+        String[] projection = {
+                DogEntry.WALK_ID,
+                DogEntry.COLUMN_DATE1,
+                DogEntry.COLUMN_TIME1,
+                DogEntry.COLUMN_LENGTH,
+                DogEntry.COLUMN_LOCATION
+        };
+
+        Cursor cursor = readableDatabase.query(DogEntry.TABLE_WALKING, projection, null, null, null, null, null);
+        return cursor;}
+    }
